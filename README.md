@@ -1,7 +1,13 @@
+Intro
+=====
+
+This is just my hacky home energy Grafana setup built on Home Assistant.
+
+![alt text](grafana.png "Home Energy")
+
+
 Quick write up
 ==============
-
-This is just my hacking home energy Grafana setup built on Home Assistant.
 
 It's not big or clever, but it might save someone time looking at this.
 
@@ -18,16 +24,28 @@ The first table is just:
     create table joe_name_links
     (
      name varchar(32),
-     metadata_id int
+     metadata_id int,
+     scale double
     );
 
 You add to it with say:
 
-    insert into joe_name_links (name, metadata_id) VALUES('Home Power', 71); 
-    insert into joe_name_links (name, metadata_id) VALUES('EV Charger Power', 34); 
-    insert into joe_name_links (name, metadata_id) VALUES('Media Corner', 22); 
-    insert into joe_name_links (name, metadata_id) VALUES('Drier', 3);
-    insert into joe_name_links (name, metadata_id) VALUES('Internet', 14);
+    insert into joe_name_links (name, metadata_id, scale) VALUES('Home Power', 71, 1000);
+    insert into joe_name_links (name, metadata_id, scale) VALUES('EV Charger Power', 34, 1);
+    insert into joe_name_links (name, metadata_id, scale) VALUES('Media Power', 22, 1);
+    insert into joe_name_links (name, metadata_id, scale) VALUES('Drier Power', 3, 1);
+    insert into joe_name_links (name, metadata_id, scale) VALUES('Internet Power', 14, 1);
+
+    insert into joe_name_links (name, metadata_id, scale) VALUES('Home Total', 71, 1000);
+    insert into joe_name_links (name, metadata_id, scale) VALUES('EV Charger Total', 34, 1);
+    insert into joe_name_links (name, metadata_id, scale) VALUES('Media Total', 22, 1);
+    insert into joe_name_links (name, metadata_id, scale) VALUES('Drier Total', 3, 1);
+    insert into joe_name_links (name, metadata_id, scale) VALUES('Internet Total', 14, 1);
+
+"Power" postfix is used and expected for kw, or in the case of home here, thus the different scale, watt.
+"Total" postfix is used and expected for kwh, or in the case of home here, thus the different scale, wh.
+"Home" is an expected name for the house total.
+You're see all three of those used in the SQL of the Grafana queries.
 
 
 The second is complicated:
